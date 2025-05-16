@@ -74,13 +74,9 @@ if args.temp_dir_java:
 else:
     JAVA_TEMP = ""
 
-command_line = (
-    f"{args.java} {JAVA_TEMP} -Xmx{args.xmx_java} -jar {GATK} -T Pileup "
-    f"-R {REFERENCE} -I {args.bam} -L {MARKER_FILE} -o {args.outfile} "
-    "-verbose -rf DuplicateRead --filter_reads_with_N_cigar "
-    "--filter_mismatching_base_and_quals"
-    "--fix_misencoded_quality_scores -fixMisencodedQuals"
-)
+command_line = ("{7} {0} -Xmx{1} -jar {2} -T Pileup -R {3} -I {4} -L {5} -o {6} " +
+				"-verbose -rf DuplicateRead --filter_reads_with_N_cigar " +
+				"--filter_mismatching_base_and_quals --fix_misencoded_quality_scores -fixMisencodedQuals").format(JAVA_TEMP, opts.xmx_java, GATK, REFERENCE, opts.bam, MARKER_FILE, opts.outfile, opts.java)
 
 os.system(command_line)
 
