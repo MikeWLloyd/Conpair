@@ -73,13 +73,19 @@ def likelihood_per_marker(A, Scores, checkpoints, ref_basequals, alt_basequals):
     for bq in ref_basequals:
         for i in range(0, len(checkpoints)):
             v = checkpoints[i]
-            ref_part = [Scores['AAAA_A'][v][bq], Scores['AABB_A'][v][bq], Scores['AABA_A'][v][bq], Scores['ABAB_A'][v][bq], Scores['ABAA_A'][v][bq], Scores['ABAA_B'][v][bq], Scores['AAAA_B'][v][bq], Scores['AABB_B'][v][bq], Scores['AABA_B'][v][bq]]
-            A[i] += ref_part
+            try:
+                ref_part = [Scores['AAAA_A'][v][bq], Scores['AABB_A'][v][bq], Scores['AABA_A'][v][bq], Scores['ABAB_A'][v][bq], Scores['ABAA_A'][v][bq], Scores['ABAA_B'][v][bq], Scores['AAAA_B'][v][bq], Scores['AABB_B'][v][bq], Scores['AABA_B'][v][bq]]
+                A[i] += ref_part
+            except KeyError as e:
+                pass
     for bq in alt_basequals:
         for i in range(0, len(checkpoints)):
             v = checkpoints[i]
-            alt_part = [Scores['AAAA_B'][v][bq], Scores['AABB_B'][v][bq], Scores['AABA_B'][v][bq], Scores['ABAB_B'][v][bq], Scores['ABAA_B'][v][bq], Scores['ABAA_A'][v][bq], Scores['AAAA_A'][v][bq], Scores['AABB_A'][v][bq], Scores['AABA_A'][v][bq]]
-            A[i] += alt_part
+            try:
+                alt_part = [Scores['AAAA_B'][v][bq], Scores['AABB_B'][v][bq], Scores['AABA_B'][v][bq], Scores['ABAB_B'][v][bq], Scores['ABAA_B'][v][bq], Scores['ABAA_A'][v][bq], Scores['AAAA_A'][v][bq], Scores['AABB_A'][v][bq], Scores['AABA_A'][v][bq]]
+                A[i] += alt_part
+            except KeyError as e:
+                pass
     return(A)
 
 
